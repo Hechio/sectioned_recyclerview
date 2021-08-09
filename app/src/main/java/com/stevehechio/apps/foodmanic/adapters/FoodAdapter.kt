@@ -20,6 +20,12 @@ import java.util.*
 class FoodAdapter(private val foodList: List<Food>,val context: Context):
     RecyclerView.Adapter<FoodAdapter.FoodHolder>() {
     private var lastPosition = -1
+    var onClickLikedListener :OnClickLikedListener? = null
+
+
+    fun setOnClickedLike(onClickLikedListener: OnClickLikedListener){
+        this.onClickLikedListener = onClickLikedListener
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodHolder {
        return FoodHolder(ItemFoodListBinding.
        inflate(LayoutInflater.from(parent.context),parent,false))
@@ -56,7 +62,16 @@ class FoodAdapter(private val foodList: List<Food>,val context: Context):
     inner class FoodHolder(private val binding: ItemFoodListBinding):
         RecyclerView.ViewHolder(binding.root){
         fun bindViews(food: Food){
-
+            binding.root.setOnClickListener {
+                when (binding.ll.visibility) {
+                    View.VISIBLE -> {
+                        binding.ll.visibility = View.GONE
+                    }
+                    else -> {
+                        binding.ll.visibility = View.VISIBLE
+                    }
+                }
+            }
             Glide.with(context).load(food.url).centerCrop()
                 .error(R.drawable.ic_baseline_set_meal_24).into(binding.ivFood)
             binding.tv.text = food.name
@@ -65,8 +80,12 @@ class FoodAdapter(private val foodList: List<Food>,val context: Context):
             }else {
                 binding.iv.setImageResource(R.drawable.ic_baseline_favorite_border_24)
             }
+            binding.iv.setOnClickListener { onClickLikedListener?.onClickLiked(food) }
+
         }
     }
-
+ interface OnClickLikedListener{
+    fun onClickLiked(food: Food)
+}
 
 }

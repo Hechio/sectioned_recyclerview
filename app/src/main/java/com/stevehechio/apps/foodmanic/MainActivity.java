@@ -1,9 +1,11 @@
 package com.stevehechio.apps.foodmanic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.stevehechio.apps.foodmanic.adapters.CategoryAdapter;
 import com.stevehechio.apps.foodmanic.data.model.Food;
@@ -14,7 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-private ActivityMainBinding binding;
+    private ActivityMainBinding binding;
+    private ArrayList<FoodCat> arrayList = new ArrayList<>();
+    private List<Food> liked = new ArrayList<>();
+    private FoodCat foodCatLiked;
+    CategoryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +51,7 @@ private ActivityMainBinding binding;
         Food food7 = new Food("Beef Cooked Samosas","Other Meals",
                 "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
 
-        List<Food> liked = new ArrayList<>();
+
         liked.add(food);
         liked.add(food2);
         liked.add(food4);
@@ -58,18 +64,30 @@ private ActivityMainBinding binding;
         other.add(food7);
 
 
-        FoodCat foodCatLiked = new FoodCat("Liked Meals",liked);
+        foodCatLiked = new FoodCat("Liked Meals",liked);
         FoodCat foodCatPopular = new FoodCat("Popular Meals",popular);
         FoodCat foodCat = new FoodCat("Other Meals",other);
 
-        ArrayList<FoodCat> arrayList = new ArrayList<>();
+
         arrayList.add(foodCatLiked);
         arrayList.add(foodCatPopular);
         arrayList.add(foodCat);
         binding.rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        CategoryAdapter adapter = new CategoryAdapter(getApplicationContext());
-        adapter.setFoodList(arrayList);
+        adapter = new CategoryAdapter(getApplicationContext());
+        adapter.setMyFoodList(arrayList);
         binding.rv.setAdapter(adapter);
+        adapter.setOnUpDateData(this::onUpDateData);
+        adapter.setOnUpDateData((food8, foodCat1) -> {
 
+
+        });
+    }
+
+    private void onUpDateData(Food food, FoodCat foodCat) {
+        liked.add(food);
+        arrayList.remove(foodCatLiked);
+        liked.add(food);
+        foodCatLiked = new FoodCat("Liked Meals",liked);
+        adapter.setFoodList(arrayList);
     }
 }

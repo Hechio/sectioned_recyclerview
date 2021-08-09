@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.stevehechio.apps.foodmanic.data.model.Food
 import com.stevehechio.apps.foodmanic.data.model.FoodCat
 import com.stevehechio.apps.foodmanic.databinding.ItemCategoryListBinding
 
@@ -13,7 +14,13 @@ import com.stevehechio.apps.foodmanic.databinding.ItemCategoryListBinding
  */
 class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapter.CategoryHolder>() {
     var foodList = ArrayList<FoodCat>()
+    var onUpDateData: OnUpDateData? = null
 
+    fun setMyFoodList(foodList: ArrayList<FoodCat>){
+        this.foodList.clear()
+        this.foodList = foodList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
         return CategoryHolder(ItemCategoryListBinding.inflate(LayoutInflater.from(parent.context)
@@ -36,6 +43,11 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
            }else {
                bindRecyclerViews(context = context,mAdapter = adapter)
            }
+           adapter.setOnClickedLike(object : FoodAdapter.OnClickLikedListener{
+               override fun onClickLiked(food: Food) {
+                   onUpDateData?.onUpdateData(food,foodCat)
+               }
+           })
        }
 
 
@@ -55,5 +67,9 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
         private fun setHeader(category: String){
             binding.txtCat.text = category
         }
+    }
+
+    interface OnUpDateData {
+        fun onUpdateData(food: Food,foodCat: FoodCat)
     }
 }
