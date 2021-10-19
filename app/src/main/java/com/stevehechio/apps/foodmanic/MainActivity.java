@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Food> liked = new ArrayList<>();
     private FoodCat foodCatLiked;
     CategoryAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
         Food food3 = new Food("Vegetable Cooked Samosas","Popular Meals",
                 "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
+       Food food31 = new Food("Vegetable Cooked Samosas","Popular Meals",
+                "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
+       Food food32 = new Food("Vegetable Cooked Samosas","Popular Meals",
+                "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
+       Food food33 = new Food("Vegetable Cooked Samosas","Popular Meals",
+                "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
+
         Food food4 = new Food("Vegetable Samosas","Liked Meals",
                 "https://images.unsplash.com/photo-1627662168806-efa33a7cda86?ixid=MnwxMjA3fDF8MHxzZWFyY2h8OHx8Zm9vZHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60");
 
@@ -59,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         List<Food> popular= new ArrayList<>();
         popular.add(food1);
         popular.add(food3);
+        popular.add(food31);
+        popular.add(food32);
+        popular.add(food33);
         List<Food> other = new ArrayList<>();
         other.add(food5);
         other.add(food7);

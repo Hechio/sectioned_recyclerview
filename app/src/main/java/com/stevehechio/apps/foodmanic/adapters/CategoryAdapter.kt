@@ -1,10 +1,12 @@
 package com.stevehechio.apps.foodmanic.adapters
 
 import android.content.Context
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.stevehechio.apps.foodmanic.MainActivity
 import com.stevehechio.apps.foodmanic.data.model.Food
 import com.stevehechio.apps.foodmanic.data.model.FoodCat
 import com.stevehechio.apps.foodmanic.databinding.ItemCategoryListBinding
@@ -38,7 +40,7 @@ class CategoryAdapter(val context: Context) : RecyclerView.Adapter<CategoryAdapt
        fun bindViews(foodCat: FoodCat){
            setHeader(foodCat.name)
            val adapter = FoodAdapter(foodList = foodCat.list,context)
-           if (foodCat.name == "Popular Meals"){
+           if (foodCat.name == "Popular Meals" || foodCat.name == "Liked Meals"){
                bindHorizontalRecyclerViews(context = context,mAdapter = adapter)
            }else {
                bindRecyclerViews(context = context,mAdapter = adapter)
